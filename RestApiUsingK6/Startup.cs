@@ -17,7 +17,7 @@ namespace RestApiUsingK6
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;            
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +26,8 @@ namespace RestApiUsingK6
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // Register the Swagger services
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +41,10 @@ namespace RestApiUsingK6
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseAuthorization();
 
